@@ -168,7 +168,8 @@ async function fetchPlaylistVideos(playlistId: string): Promise<WorkVideo[]> {
  * Resolves work samples at build time.
  * - Set `playlistId` in works.json to pull videos automatically (rebuild to refresh).
  * - Optional `YOUTUBE_API_KEY` for full playlists (RSS alone caps around 15).
- * - Manual `videos` always win for matching IDs (title/category/featured overrides).
+ * - Unlisted videos do not appear in RSS/API-key playlist feeds; list those in `videos`.
+ * - Deduped by YouTube video ID. Manual entries override title/category/featured when IDs match.
  */
 export async function getWorks(): Promise<WorkVideo[]> {
   const manual = parseManualVideos(config.videos ?? []);
@@ -179,17 +180,21 @@ export async function getWorks(): Promise<WorkVideo[]> {
     playlist = await fetchPlaylistVideos(config.playlistId.trim());
   }
 
-  const seen = new Set<string>();
-  const merged: WorkVideo[] = [];
+  // Playlist order first (when available), then any manual-only IDs.
+  // Same ID never appears twice; manual metadata wins on collision.
+  const mergedById = new Map<string, WorkVideo>();
 
-  for (const video of [...manual, ...playlist]) {
-    if (seen.has(video.id)) continue;
-    seen.add(video.id);
+  for (const video of playlist) {
     const override = manualById.get(video.id);
-    merged.push(override ? { ...video, ...override } : video);
+    mergedById.set(video.id, override ? { ...video, ...override } : video);
   }
 
-  return merged;
+  for (const video of manual) {
+    if (mergedById.has(video.id)) continue;
+    mergedById.set(video.id, video);
+  }
+
+  return [...mergedById.values()];
 }
 
 export function getFeatured(videos: WorkVideo[]): WorkVideo | undefined {

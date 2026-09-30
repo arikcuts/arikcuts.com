@@ -32,8 +32,12 @@ Edit [`src/data/works.json`](src/data/works.json):
 
 | Setup | What you get |
 | --- | --- |
-| No key (default) | Playlist sync via YouTube RSS (~15 videos). Manual JSON entries still work. |
-| With `YOUTUBE_API_KEY` | Full playlist via YouTube Data API (paginated, best for large playlists). |
+| No key (default) | Playlist sync via YouTube RSS (~15 **public** videos). Manual JSON entries still work. |
+| With `YOUTUBE_API_KEY` | Full **public** playlist via YouTube Data API (paginated). |
+
+**Unlisted videos never appear in playlist feeds**, even when the playlist itself is public. List those under `videos`.
+
+Entries are **deduped by video ID**. Manual rows override title/category/featured when the same ID is also in the playlist.
 
 To create a key if you want full playlist sync:
 
@@ -43,8 +47,6 @@ To create a key if you want full playlist sync:
 4. Credentials → Create credentials → **API key**
 5. Restrict the key to YouTube Data API v3 (recommended)
 6. Add it as a repo secret named `YOUTUBE_API_KEY`
-
-Manual `videos` always override matching IDs (title, category, featured).
 
 ## Deploy (GitHub Pages)
 

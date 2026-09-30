@@ -2,10 +2,15 @@
   "playlistId": "PLWCwJWt-Ffw4",
   "videos": [
     {
-      "title": "Featured long-form edit",
+      "title": "Featured edit 01",
       "url": "https://www.youtube.com/watch?v=Ys7tqW2e7tc",
       "category": "Long-form",
       "featured": true
+    },
+    {
+      "title": "Featured edit 02",
+      "url": "https://www.youtube.com/watch?v=3ouQBe5dLpo",
+      "category": "Long-form"
     }
   ]
 }
