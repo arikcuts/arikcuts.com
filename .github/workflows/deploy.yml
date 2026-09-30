@@ -1,4 +1,4 @@
-name: Deploy arikcuts.com
+name: Deploy GitHub Pages
 
 on:
   push:
@@ -7,12 +7,24 @@ on:
     # Rebuild weekly so a YouTube playlist in works.json stays fresh
     - cron: '0 6 * * 1'
   workflow_dispatch:
+    inputs:
+      reason:
+        description: Why are you redeploying?
+        required: false
+        default: Manual deploy
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
       - uses: actions/checkout@v4
 
@@ -26,11 +38,21 @@ jobs:
       - name: Build
         run: npm run build
         env:
+          # Optional. Without it, playlist sync uses YouTube RSS (~15 videos).
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
 
-      - name: Deploy to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

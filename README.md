@@ -1,6 +1,6 @@
-# ArikCuts — arikcuts.com
+# ArikCuts | arikcuts.com
 
-Static portfolio for Arik Ahmed (video editor). Built with **Astro 7 + Vite 8**, deployed to **Cloudflare Workers** assets.
+Static portfolio for Arik Ahmed (video editor). Built with **Astro 7 + Vite 8**, deployed to **GitHub Pages**.
 
 ## Work samples (playlist or JSON)
 
@@ -24,17 +24,41 @@ Edit [`src/data/works.json`](src/data/works.json):
 
 1. Create a public playlist with your demo edits.
 2. Copy the `list=` ID from the playlist URL into `playlistId`.
-3. Rebuild / redeploy — videos are fetched at **build time**.
+3. Rebuild / redeploy. Videos are fetched at **build time**.
 
-How fetch works:
+### Is `YOUTUBE_API_KEY` required?
 
-- With optional `YOUTUBE_API_KEY` → full playlist via YouTube Data API.
-- Without a key → YouTube playlist RSS (about the newest ~15 items).
-- Manual `videos` always override matching IDs (title, category, featured).
+**No. It is optional.**
 
-GitHub Actions rebuilds on every push to `main` and on a **weekly schedule**, so playlist changes land without hand-editing JSON.
+| Setup | What you get |
+| --- | --- |
+| No key (default) | Playlist sync via YouTube RSS (~15 videos). Manual JSON entries still work. |
+| With `YOUTUBE_API_KEY` | Full playlist via YouTube Data API (paginated, best for large playlists). |
 
-Site copy / contact lives in [`src/data/site.json`](src/data/site.json).
+To create a key if you want full playlist sync:
+
+1. Open [Google Cloud Console](https://console.cloud.google.com/)
+2. Create or select a project
+3. Enable **YouTube Data API v3**
+4. Credentials → Create credentials → **API key**
+5. Restrict the key to YouTube Data API v3 (recommended)
+6. Add it as a repo secret named `YOUTUBE_API_KEY`
+
+Manual `videos` always override matching IDs (title, category, featured).
+
+## Deploy (GitHub Pages)
+
+Deploys when you:
+
+- Push to `main`
+- Run **Actions → Deploy GitHub Pages → Run workflow** (manual)
+- Hit the weekly schedule (playlist refresh)
+
+One-time repo setup:
+
+1. **Settings → Pages → Build and deployment → Source:** GitHub Actions
+2. Optional custom domain: set `arikcuts.com` under Pages, then add the DNS records GitHub shows
+3. Optional secret: `YOUTUBE_API_KEY` (only if you want full playlist API sync)
 
 ## Local development
 
@@ -48,18 +72,4 @@ npm run build
 npm run preview
 ```
 
-## Deploy (Cloudflare Workers)
-
-```bash
-npm run deploy
-```
-
-Or push to `main` after setting GitHub secrets:
-
-| Secret | Purpose |
-| --- | --- |
-| `CLOUDFLARE_API_TOKEN` | Workers deploy token |
-| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account ID |
-| `YOUTUBE_API_KEY` | Optional — full playlist sync |
-
-Attach `arikcuts.com` / `www` in the Cloudflare dashboard (or keep the `routes` in `wrangler.jsonc`). Point DNS to Cloudflare if it isn’t already.
+Site copy / contact lives in [`src/data/site.json`](src/data/site.json).
