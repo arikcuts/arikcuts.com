@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import site from '../data/site.json';
+---
+
+<BaseLayout title={`Page not found | ${site.brand}`}>
+  <main class="wrap missing">
+    <p class="section-label">404</p>
+    <h1 class="section-title">Cut not found.</h1>
+    <p class="section-copy">That frame isn't on this reel.</p>
+    <a class="btn btn-primary" href="/">Back home</a>
+  </main>
+</BaseLayout>
+
+<style>
+  .missing {
+    min-height: 100svh;
+    display: grid;
+    align-content: center;
+    gap: 0.5rem;
+    padding-block: 4rem;
+  }
+
+  .missing .btn {
+    width: fit-content;
+    margin-top: 1.25rem;
+  }
+</style>

@@ -1,0 +1,313 @@
+---
+import site from '../data/site.json';
+---
+
+<section class="hero" id="top" aria-labelledby="hero-brand">
+  <div class="hero-stage" aria-hidden="true">
+    <div class="hero-wash"></div>
+    <div class="hero-beam"></div>
+    <div class="hero-grid"></div>
+
+    <div class="timeline">
+      <div class="timeline-rail"></div>
+      <div class="timeline-playhead"></div>
+      <div class="clip clip-a"></div>
+      <div class="clip clip-b"></div>
+      <div class="clip clip-c"></div>
+      <div class="clip clip-d"></div>
+      <div class="wave"></div>
+    </div>
+
+    <div class="marks">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <div class="wrap hero-content">
+    <p class="hero-role reveal">{site.title}</p>
+    <h1 class="hero-brand reveal" id="hero-brand">{site.brand}</h1>
+    <p class="hero-tagline reveal">{site.tagline}</p>
+    <p class="hero-copy reveal">{site.description}</p>
+
+    <div class="hero-actions reveal">
+      <a class="btn btn-primary" href="#work">Watch the work</a>
+      <a class="btn btn-ghost" href={`mailto:${site.email}`}>Start a project</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    align-items: end;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero-stage {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: #070708;
+  }
+
+  .hero-wash {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 55% 45% at 78% 28%, rgba(214, 255, 63, 0.16), transparent 62%),
+      radial-gradient(ellipse 45% 40% at 12% 78%, rgba(255, 107, 61, 0.14), transparent 58%),
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255, 255, 255, 0.04), transparent 55%),
+      linear-gradient(165deg, #121316 0%, #070708 48%, #050506 100%);
+  }
+
+  .hero-beam {
+    position: absolute;
+    top: -20%;
+    right: 8%;
+    width: min(42vw, 28rem);
+    height: 140%;
+    background: linear-gradient(
+      108deg,
+      transparent 30%,
+      rgba(214, 255, 63, 0.08) 48%,
+      rgba(255, 255, 255, 0.04) 52%,
+      transparent 68%
+    );
+    transform: rotate(12deg);
+    filter: blur(2px);
+    animation: beam 10s var(--ease) infinite alternate;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.22;
+    background-image:
+      linear-gradient(rgba(244, 241, 234, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(244, 241, 234, 0.05) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(ellipse 70% 60% at 70% 40%, #000 20%, transparent 75%);
+  }
+
+  .timeline {
+    position: absolute;
+    right: max(1.25rem, 4vw);
+    bottom: clamp(6.5rem, 16vh, 10rem);
+    width: min(42vw, 28rem);
+    height: 7.5rem;
+    opacity: 0.9;
+  }
+
+  .timeline-rail {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 1.1rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(244, 241, 234, 0.35), transparent);
+  }
+
+  .timeline-playhead {
+    position: absolute;
+    top: 0;
+    left: 38%;
+    width: 1.5px;
+    height: 100%;
+    background: var(--accent);
+    box-shadow: 0 0 18px rgba(214, 255, 63, 0.45);
+    animation: scrub 7s var(--ease) infinite alternate;
+  }
+
+  .timeline-playhead::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0.7rem;
+    height: 0.7rem;
+    background: var(--accent);
+    transform: translateX(-50%);
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+  }
+
+  .clip {
+    position: absolute;
+    height: 1.35rem;
+    border: 1px solid rgba(244, 241, 234, 0.18);
+    background: rgba(244, 241, 234, 0.04);
+  }
+
+  .clip-a {
+    top: 1.65rem;
+    left: 4%;
+    width: 28%;
+    background: linear-gradient(90deg, rgba(214, 255, 63, 0.22), rgba(214, 255, 63, 0.06));
+    border-color: rgba(214, 255, 63, 0.35);
+  }
+
+  .clip-b {
+    top: 1.65rem;
+    left: 34%;
+    width: 22%;
+  }
+
+  .clip-c {
+    top: 1.65rem;
+    left: 58%;
+    width: 34%;
+    background: linear-gradient(90deg, rgba(255, 107, 61, 0.2), rgba(255, 107, 61, 0.05));
+    border-color: rgba(255, 107, 61, 0.35);
+  }
+
+  .clip-d {
+    top: 3.35rem;
+    left: 18%;
+    width: 48%;
+    height: 1rem;
+    opacity: 0.75;
+  }
+
+  .wave {
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    bottom: 0.35rem;
+    height: 1.8rem;
+    opacity: 0.55;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0 4px,
+        rgba(244, 241, 234, 0.08) 4px 5px
+      ),
+      linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(214, 255, 63, 0.35) 48%,
+        transparent 100%
+      );
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M0 20 Q10 6 20 20 T40 20 T60 20 T80 20 T100 20 T120 20 T140 20 T160 20 T180 20 T200 20 V40 H0Z'/%3E%3C/svg%3E");
+    mask-size: 100% 100%;
+    animation: pulse 3.8s ease-in-out infinite;
+  }
+
+  .marks {
+    position: absolute;
+    inset: 12% 6% auto;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+
+  .marks span {
+    width: 1px;
+    height: 1.1rem;
+    background: rgba(244, 241, 234, 0.18);
+  }
+
+  .marks span:nth-child(odd) {
+    height: 0.65rem;
+    margin-top: 0.45rem;
+    background: rgba(244, 241, 234, 0.1);
+  }
+
+  .hero-content {
+    width: min(1120px, calc(100% - 2.5rem));
+    padding-block: calc(var(--nav-h) + 4rem) clamp(3.5rem, 8vw, 5.5rem);
+  }
+
+  .hero-role {
+    margin: 0 0 1rem;
+    color: var(--accent);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .hero-brand {
+    margin: 0;
+    max-width: 12ch;
+    font-family: var(--font-display);
+    font-size: clamp(4.2rem, 14vw, 9.5rem);
+    font-weight: 800;
+    letter-spacing: -0.055em;
+    line-height: 0.88;
+    text-wrap: balance;
+  }
+
+  .hero-tagline {
+    margin: 1.35rem 0 0;
+    max-width: 16ch;
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 3.4vw, 2.25rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+
+  .hero-copy {
+    margin: 1rem 0 0;
+    max-width: 34rem;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: rise 0.9s var(--ease) forwards;
+  }
+
+  .reveal:nth-child(1) { animation-delay: 0.05s; }
+  .reveal:nth-child(2) { animation-delay: 0.16s; }
+  .reveal:nth-child(3) { animation-delay: 0.28s; }
+  .reveal:nth-child(4) { animation-delay: 0.38s; }
+  .reveal:nth-child(5) { animation-delay: 0.48s; }
+
+  @keyframes rise {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes scrub {
+    from { left: 18%; }
+    to { left: 72%; }
+  }
+
+  @keyframes beam {
+    from { opacity: 0.55; transform: rotate(12deg) translateX(0); }
+    to { opacity: 1; transform: rotate(12deg) translateX(2%); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 0.7; }
+  }
+
+  @media (max-width: 720px) {
+    .timeline {
+      width: min(88vw, 22rem);
+      right: 1.25rem;
+      bottom: 5.5rem;
+      opacity: 0.7;
+    }
+
+    .hero-beam {
+      right: -10%;
+      width: 70vw;
+    }
+  }
+</style>

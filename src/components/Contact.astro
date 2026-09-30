@@ -1,0 +1,107 @@
+---
+import site from '../data/site.json';
+---
+
+<section class="section contact" id="contact" aria-labelledby="contact-title">
+  <div class="wrap contact-grid">
+    <div>
+      <p class="section-label">Contact</p>
+      <h2 class="section-title" id="contact-title">Ready when you are.</h2>
+      <p class="section-copy">
+        Tell me about the channel, the footage, and the deadline. I'll reply with availability and next steps.
+      </p>
+    </div>
+
+    <div class="contact-panel">
+      <a class="contact-row" href={`mailto:${site.email}`}>
+        <span>Email</span>
+        <strong>{site.email}</strong>
+      </a>
+      <a class="contact-row" href={site.social.upwork} target="_blank" rel="noopener noreferrer">
+        <span>Upwork</span>
+        <strong>Hire on Upwork</strong>
+      </a>
+
+      <div class="socials">
+        <a href={site.youtube} target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a href={site.social.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href={site.social.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    border-top: 1px solid var(--line);
+  }
+
+  .contact-grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .contact-panel {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .contact-row {
+    display: grid;
+    gap: 0.25rem;
+    padding: 1.15rem 1.2rem;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.02);
+    transition:
+      border-color 0.3s var(--ease),
+      background 0.3s var(--ease),
+      transform 0.3s var(--ease);
+  }
+
+  .contact-row:hover {
+    border-color: rgba(214, 255, 63, 0.45);
+    background: rgba(214, 255, 63, 0.05);
+    transform: translateY(-2px);
+  }
+
+  .contact-row span {
+    color: var(--faint);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .contact-row strong {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .socials a {
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.15rem;
+    transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+  }
+
+  .socials a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  @media (min-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+    }
+  }
+</style>

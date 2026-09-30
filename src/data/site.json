@@ -1,0 +1,35 @@
+{
+  "brand": "ArikCuts",
+  "name": "Arik Ahmed",
+  "title": "YouTube & Reels Video Editor",
+  "tagline": "Cuts that keep them watching.",
+  "description": "Turning raw footage into engaging Shorts and long-form videos for creators and brands.",
+  "yearsExperience": "3+",
+  "email": "hello@arikcuts.com",
+  "domain": "arikcuts.com",
+  "siteUrl": "https://arikcuts.com",
+  "youtube": "https://www.youtube.com/@AystarEdits2.0",
+  "social": {
+    "facebook": "https://www.facebook.com/arikahmed123",
+    "instagram": "https://www.instagram.com/aystargaming/?hl=en",
+    "upwork": "https://www.upwork.com/freelancers/~01e9633ec6981da951"
+  },
+  "about": [
+    "I'm Arik Ahmed, a video editor specializing in YouTube, Reels, Shorts, and long-form content.",
+    "I help creators and brands grow with edits built for retention: pacing, pacing again, then the polish that makes people stay."
+  ],
+  "services": [
+    {
+      "title": "YouTube long-form",
+      "copy": "Intros, pacing, B-roll, color, and audio shaped for watch time."
+    },
+    {
+      "title": "Shorts & Reels",
+      "copy": "Vertical cuts with hooks, captions, and motion that stop the scroll."
+    },
+    {
+      "title": "Brand & promo",
+      "copy": "Product stories and social clips with a clean, commercial finish."
+    }
+  ]
+}

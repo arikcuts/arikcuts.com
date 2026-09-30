@@ -1,0 +1,11 @@
+{
+  "playlistId": "",
+  "videos": [
+    {
+      "title": "Sample video -01",
+      "url": "https://www.youtube.com/watch?v=Ys7tqW2e7tc",
+      "category": "Long-form",
+      "featured": true
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+---
+import type { WorkVideo } from '../lib/works';
+
+interface Props {
+  videos: WorkVideo[];
+}
+
+const { videos } = Astro.props;
+---
+
+<section class="section work" id="work" aria-labelledby="work-title">
+  <div class="wrap">
+    <p class="section-label">Selected cuts</p>
+    <h2 class="section-title" id="work-title">Work that moves.</h2>
+    <p class="section-copy">
+      Long-form, Shorts, and brand cuts pulled from YouTube. More landing soon.
+    </p>
+
+    {
+      videos.length === 0 ? (
+        <p class="empty">No videos yet. Add URLs to <code>src/data/works.json</code>.</p>
+      ) : (
+        <div class="work-grid">
+          {videos.map((video, index) => (
+            <article class="work-item" style={`--i: ${index}`}>
+              <div class="work-frame">
+                <iframe
+                  src={`${video.embedUrl}?rel=0`}
+                  title={video.title}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                />
+              </div>
+              <div class="work-meta">
+                {video.category ? <span class="work-cat">{video.category}</span> : null}
+                <h3>{video.title}</h3>
+                <a href={video.url} target="_blank" rel="noopener noreferrer">
+                  Open on YouTube
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .work {
+    border-top: 1px solid var(--line);
+  }
+
+  .empty {
+    margin-top: 2rem;
+    color: var(--muted);
+  }
+
+  .empty code {
+    color: var(--accent);
+    font-size: 0.9em;
+  }
+
+  .work-grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .work-item {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: rise 0.8s var(--ease) forwards;
+    animation-delay: calc(0.08s * var(--i));
+  }
+
+  .work-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+  }
+
+  .work-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .work-meta {
+    display: grid;
+    gap: 0.35rem;
+    margin-top: 1rem;
+  }
+
+  .work-cat {
+    color: var(--accent);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .work-meta h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2.5vw, 1.7rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .work-meta a {
+    width: fit-content;
+    color: var(--muted);
+    font-size: 0.92rem;
+    border-bottom: 1px solid transparent;
+    transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+  }
+
+  .work-meta a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+
+  @media (min-width: 900px) {
+    .work-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .work-item:first-child .work-frame {
+      box-shadow: 0 0 0 1px rgba(214, 255, 63, 0.18);
+    }
+  }
+
+  @keyframes rise {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

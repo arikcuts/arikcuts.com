@@ -1,0 +1,117 @@
+---
+import site from '../data/site.json';
+---
+
+<section class="section about" id="about" aria-labelledby="about-title">
+  <div class="wrap about-grid">
+    <div>
+      <p class="section-label">About</p>
+      <h2 class="section-title" id="about-title">Editor for creators who care about retention.</h2>
+    </div>
+
+    <div class="about-body">
+      {site.about.map((paragraph) => <p>{paragraph}</p>)}
+
+      <dl class="stats">
+        <div>
+          <dt>{site.yearsExperience}</dt>
+          <dd>Years editing</dd>
+        </div>
+        <div>
+          <dt>YouTube</dt>
+          <dd>Long-form focus</dd>
+        </div>
+        <div>
+          <dt>Shorts</dt>
+          <dd>Reels & TikTok</dd>
+        </div>
+      </dl>
+
+      <ul class="services">
+        {
+          site.services.map((service) => (
+            <li>
+              <h3>{service.title}</h3>
+              <p>{service.copy}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    border-top: 1px solid var(--line);
+    background:
+      radial-gradient(ellipse 60% 50% at 100% 0%, rgba(255, 107, 61, 0.08), transparent 55%),
+      var(--bg);
+  }
+
+  .about-grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .about-body p {
+    margin: 0 0 1rem;
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 38rem;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 2rem 0 0;
+    padding: 1.25rem 0;
+    border-block: 1px solid var(--line);
+  }
+
+  .stats dt {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .stats dd {
+    margin: 0.2rem 0 0;
+    color: var(--faint);
+    font-size: 0.82rem;
+  }
+
+  .services {
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .services h3 {
+    margin: 0 0 0.35rem;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+  }
+
+  .services p {
+    margin: 0;
+    max-width: none;
+  }
+
+  @media (min-width: 900px) {
+    .about-grid {
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .services {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
